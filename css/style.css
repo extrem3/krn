@@ -3,11 +3,17 @@
 	position:relative;
 }
 #footer_pannel{
+	z-index:100;
+	width:700px;
+	height:40px;
+	position:fixed;
+	bottom:0px;
 	color:#ff0000;
-	position:absolute;
-	bottom: 10px;
-	width:712px;
-	margin: 0px auto;
+	background-color: #111111;
+	/* position:absolute; */
+	/* bottom: 10px; */
+	/* width:712px; */
+	/* margin: 0px auto; */
 }
 #main{
 	width:712px;
