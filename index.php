@@ -2,7 +2,7 @@
 <?php
 $location="localhost";		//location of your database
 $username="root";			//username for your database
-$password="andre";			//passowrd
+$password="toor";			//passowrd
 $database="krn";			//table name
 $bgImages = array(array("images/bg.jpg", 1024, 768));
 
