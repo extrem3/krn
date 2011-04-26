@@ -1,0 +1,139 @@
+body {
+	padding: 0px;
+	margin: 0px;
+}
+#page {
+	z-index:100;
+	position: relative;
+}
+#title{
+	cursor:pointer;
+	color:#ff0000;
+	height: 100px;
+	position:relative;
+}
+#footer_pannel{
+	z-index:100;
+	width:700px;
+	height:27px;
+	position:fixed;
+	bottom:0px;
+	color:#fff;
+	background-color: #111111;
+}
+#language{
+	display: inline;
+	position: relative;
+	margin-left: 10px;
+	float: left;
+	/* left: 10px; */
+}
+#copyright{
+	display: inline;
+	position: fixed;
+	left: 50%;
+
+}
+#author{
+	display: inline;
+	position: static;
+	margin-right: 10px;
+	float: right;
+	/* right: 10px; */
+}
+#main{
+	width:712px;
+	margin: 0px auto;
+	height:100%;
+	position: relative;
+	overflow: hidden;
+}
+.cc_menu{
+	width:712px; /*140px * 5 + (6*border_width)*/
+	margin: 0px auto;
+	height:600px;
+	font-size:14px;
+	color:#fff;
+	background-color: black;
+	position: relative;
+	top: 200px;
+	overflow: hidden;
+}
+.cc_item{
+	text-align:center;
+	width:140px;
+	height:600px;
+	float:left;
+	border-bottom:1px solid #000;
+	background:#444 url(../images/bg.png) repeat top left;
+	position:relative;
+	border-right:2px solid #000;
+}
+span.cc_title{
+	color:#fff;
+	font-size:18px;
+	top:100px;
+	left:5px;
+	position:absolute;
+	padding: 12px 0px 12px;
+	opacity:0.9;
+	background:#111;
+	width:130px;
+	display:block;
+	z-index:11;
+}
+.cc_submenu ul{
+	list-style:none;
+	width:140px;
+	margin:0;
+	padding:0;
+	height:0px; /*increase to 200px to slide up*/
+	overflow:hidden;
+	text-align:center;
+	background:#000;
+	position:absolute;
+	left:0px;
+	bottom:0px;
+	opacity:0.7;
+	z-index:13;
+}
+.cc_submenu ul li{
+	color:#ddd;
+	cursor:pointer;
+	padding:3px;
+}
+.cc_item img{
+	position:absolute;
+	width:140px;
+	height:600px;
+	top:-600px;
+	left:0px;
+}
+.cc_content{
+	width:572px; /*700 - 140*/
+	height:600px;
+	border-bottom:1px solid #000;
+	position:absolute;
+	left:-700px;
+	background:#444 url(../images/bg.png) repeat top left;
+	overflow:hidden;
+}
+.cc_content div{
+	display:none;
+	margin:20px;
+}
+.cc_content p{
+	background:#000;
+	padding:20px;
+	opacity:0.7;
+}
+span.cc_back{
+	position:absolute;
+	top:190px;
+	right:10px;
+	cursor:pointer;
+	color:#ddd;
+	padding: 5px;
+	margin: 5px;
+	background-color: #000000;
+}
