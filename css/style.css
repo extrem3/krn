@@ -5,15 +5,31 @@
 #footer_pannel{
 	z-index:100;
 	width:700px;
-	height:40px;
+	height:27px;
 	position:fixed;
 	bottom:0px;
 	color:#ff0000;
 	background-color: #111111;
-	/* position:absolute; */
-	/* bottom: 10px; */
-	/* width:712px; */
-	/* margin: 0px auto; */
+}
+#language{
+	display: inline;
+	position: relative;
+	margin-left: 10px;
+	float: left;
+	/* left: 10px; */
+}
+#copyright{
+	display: inline;
+	position: fixed;
+	left: 50%;
+
+}
+#author{
+	display: inline;
+	position: static;
+	margin-right: 10px;
+	float: right;
+	/* right: 10px; */
 }
 #main{
 	width:712px;
