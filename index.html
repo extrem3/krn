@@ -7,8 +7,10 @@
         <meta name="keywords" content="jquery, navigation, menu, collapsing, accordion, sliding, image, css3"/>
 		<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
+        <link rel="stylesheet" href="css/bgstretcher.css" type="text/css" media="screen"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
         <script type="text/javascript" src="js/slowEach.js"></script>
+        <script type="text/javascript" src="js/bgstretcher.js"></script>
         <!-- The JavaScript -->
         <script type="text/javascript">
             $(function() {
@@ -21,6 +23,10 @@
 				var height = 600;
 				var numItems = 5;
 				var border = 2;
+
+				$(document).bgStretcher({
+					images: ['images/bg.jpg'], imageWidth: 1024, imageHeight: 768
+				});
 				//set initial variables
 				$('#footer_pannel').css('width', (width + border) * numItems + 'px');
 				$('.cc_menu').css('width', (width + border) * numItems + 'px');
@@ -86,7 +92,9 @@
 				function m_leave(){
 					var $this = $(this);
 					clearTimeout(menu_time);
+					//img
 					$this.find('img').stop().animate({'top':'-' + height + 'px'},transition_speed);
+					//cc_submenu ul
 					$this.find('.cc_submenu > ul').stop().animate({'height':'0px'},transition_speed);
 				}
 				
@@ -175,36 +183,11 @@
 				}
             });
         </script>
-        <style>
-			body{
-				background:#000 url(images/stripe.gif) repeat top left;
-				margin:0;
-				padding:0;
-			}
-			/*span.reference{
-				bottom: 10px;
-				width:712px;
-				position:fixed;
-				margin: 0px auto;
-				position:fixed;
-				right:95px;
-				bottom:10px;
-				font-size:11px;
-				text-shadow:1px 1px 1px #000;
-			}
-			span.reference a{
-				color:#aaa;
-				text-decoration:none;
-				margin-right:20px;
-			}
-			span.reference a:hover{
-				color:#ddd;
-			}*/
-		</style>
     </head>
 
     <body>
 
+	<div id="page">
 	<div id="main">
 		<div id="title"><img src="images/bg.png" /></div>
 		<span id="cc_back" class="cc_back">Nazaj</span>
@@ -319,6 +302,7 @@
 			</div>
 			<div id="copyright">COPYLEFT</div>
 			<div id="author">AUTH</div>
+		</div>
 		</div>
 		</div>
     </body>

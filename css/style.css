@@ -1,3 +1,11 @@
+body {
+	padding: 0px;
+	margin: 0px;
+}
+#page {
+	z-index:100;
+	position: relative;
+}
 #title{
 	cursor:pointer;
 	color:#ff0000;
@@ -10,7 +18,7 @@
 	height:27px;
 	position:fixed;
 	bottom:0px;
-	color:#ff0000;
+	color:#fff;
 	background-color: #111111;
 }
 #language{
@@ -63,11 +71,12 @@
 }
 span.cc_title{
 	color:#fff;
-	font-size:16px;
-	top:200px;
+	font-size:18px;
+	top:100px;
 	left:5px;
 	position:absolute;
-	padding:3px 0px;
+	padding: 12px 0px 12px;
+	opacity:0.9;
 	background:#111;
 	width:130px;
 	display:block;
@@ -80,7 +89,7 @@ span.cc_title{
 	padding:0;
 	height:0px; /*increase to 200px to slide up*/
 	overflow:hidden;
-	text-align:left;
+	text-align:center;
 	background:#000;
 	position:absolute;
 	left:0px;
@@ -91,7 +100,7 @@ span.cc_title{
 .cc_submenu ul li{
 	color:#ddd;
 	cursor:pointer;
-	padding:10px;
+	padding:3px;
 }
 .cc_item img{
 	position:absolute;
