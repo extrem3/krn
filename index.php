@@ -207,61 +207,60 @@ $menu_rows = mysql_num_rows($menu_id_query);
         </script>
     </head>
 
-    <body>
-
+<body>
 	<div id="page">
-	<div id="main">
-		<div id="title"><img src="images/bg.png" /></div>
-		<span id="cc_back" class="cc_back">Nazaj</span>
-		<div id="cc_menu" class="cc_menu">
-		<?php 
-		$i = 0;
-		$contentsArray = array();
-		while ($row = mysql_fetch_array($menu_id_query)) 
-		{
-			$i ++;
-			$menu_id = $row['id'];
-			$content_query = mysql_query("SELECT * FROM contents WHERE id_menu='" . $menu_id . "' ORDER BY id");
+		<div id="main">
+			<div id="title"><img src="images/bg.png" /></div>
+			<span id="cc_back" class="cc_back">Nazaj</span>
+			<div id="cc_menu" class="cc_menu">
+				<?php 
+				$i = 0;
+				$contentsArray = array();
+				while ($row = mysql_fetch_array($menu_id_query)) 
+				{
+					$i ++;
+					$menu_id = $row['id'];
+					$content_query = mysql_query("SELECT * FROM contents WHERE id_menu='" . $menu_id . "' ORDER BY id");
 
-			echo '<div class="cc_item" style="z-index:' . ($menu_rows - $i + 1) . ';">';
-			echo '<img src="images/' . $i . '.jpg" />';
-			echo '<span class="cc_title">' . $row['category'] . '</span>';
-			echo '<div class="cc_submenu">';
-			echo '<ul>';
-			$j = 0;
-			while ($contentRow = mysql_fetch_array($content_query)) 
-			{
-				$j ++;
-				$contentTitle = $contentRow['title'];
-				array_push($contentsArray, array($contentRow['title'], $contentRow['text']));
-				echo '<li class="cc_content_' . $j . '">' . $contentRow['title'] . '</li>';
-			}
-			echo '</ul>';
-			echo '</div>';
-			echo '</div>';
-		}
-		?>
-		<div id="cc_content" class="cc_content">
-		<?php 
-		for ($k = 0; $k < count($contentsArray); $k ++)
-		{
-			echo '<div class="cc_content_' . $k . '">';
-			echo '<h1>' . $contentsArray[$k][0] . '</h1>';
-			echo '<p>' . $contentsArray[$k][1] . '</p>';
-			echo '</div>';
-		}
-		?>
+					echo '<div class="cc_item" style="z-index:' . ($menu_rows - $i + 1) . ';">';
+					echo '<img src="images/' . $i . '.jpg" />';
+					echo '<span class="cc_title">' . $row['category'] . '</span>';
+					echo '<div class="cc_submenu">';
+					echo '<ul>';
+					$j = 0;
+					while ($contentRow = mysql_fetch_array($content_query)) 
+					{
+						$j ++;
+						$contentTitle = $contentRow['title'];
+						array_push($contentsArray, array($contentRow['title'], $contentRow['text']));
+						echo '<li class="cc_content_' . $j . '">' . $contentRow['title'] . '</li>';
+					}
+					echo '</ul>';
+					echo '</div>';
+					echo '</div>';
+				}
+				?>
+				<div id="cc_content" class="cc_content">
+				<?php 
+				for ($k = 0; $k < count($contentsArray); $k ++)
+				{
+					echo '<div class="cc_content_' . ($k + 1). '">';
+					echo '<h1>' . $contentsArray[$k][0] . '</h1>';
+					echo '<p>' . $contentsArray[$k][1] . '</p>';
+					echo '</div>';
+				}
+				?>
+				</div>
+			</div>
+			<div id="footer_pannel">
+				<div id="language">
+					<a href="?lang=si"><img src="images/si.png" alt="SI" /></a>
+					<a href="?lang=en"><img src="images/gb.png" alt="ENG" /></a>
+				</div>
+				<div id="copyright">COPYLEFT</div>
+				<div id="author">AUTH</div>
 			</div>
 		</div>
-		<div id="footer_pannel">
-			<div id="language">
-				<a href="?lang=si"><img src="images/si.png" alt="SI" /></a>
-				<a href="?lang=en"><img src="images/gb.png" alt="ENG" /></a>
-			</div>
-			<div id="copyright">COPYLEFT</div>
-			<div id="author">AUTH</div>
-		</div>
-		</div>
-		</div>
-    </body>
+	</div>
+</body>
 </html>
