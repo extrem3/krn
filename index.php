@@ -66,6 +66,24 @@ $menu_rows = mysql_num_rows($menu_id_query);
 			var folded		= false;
 			var menu_time;
 
+			$items.find("img").bind('click',function(){
+				var $firstLink = $(this).parent().find('.cc_submenu ul > li:first');
+				if(folded){
+					hideContent();
+					showContent($firstLink.attr('class'));
+				}	
+				else
+					fold($firstLink);
+			});
+			$items.find(".cc_title").bind('click',function(){
+				var $firstLink = $(this).parent().find('.cc_submenu ul > li:first');
+				if(folded){
+					hideContent();
+					showContent($firstLink.attr('class'));
+				}	
+				else
+					fold($firstLink);
+			});
 			$items.unbind('mouseenter')
 				  .bind('mouseenter',m_enter)
 				  .unbind('mouseleave')
@@ -181,7 +199,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 <body>
 	<div id="page">
 		<div id="main">
-			<div id="title"><img src="images/bg.png" /></div>
+			<div id="title"><img src="images/logo.png" /></div>
 			<span id="cc_back" class="cc_back"><?php if ($language == 'si') {echo "nazaj";}else{echo "back";}?></span>
 			<div id="cc_menu" class="cc_menu">
 				<?php 

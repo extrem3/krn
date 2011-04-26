@@ -70,6 +70,7 @@ body {
 	border-right:2px solid #000;
 }
 span.cc_title{
+	cursor:pointer;
 	color:#fff;
 	font-size:18px;
 	top:100px;
@@ -103,6 +104,7 @@ span.cc_title{
 	padding:3px;
 }
 .cc_item img{
+	cursor:pointer;
 	position:absolute;
 	width:140px;
 	height:600px;
