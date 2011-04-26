@@ -8,6 +8,7 @@
 		<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script type="text/javascript" src="js/slowEach.js"></script>
         <!-- The JavaScript -->
         <script type="text/javascript">
             $(function() {
@@ -15,10 +16,9 @@
 				var $items 		= $('#cc_menu .cc_item');
 				//number of menu items
 				var cnt_items	= $items.length;
-				var transition_speed = 50;
+				var transition_speed = 250;
 				var width = 140;
 				var height = 600;
-				var logoHeight = 100;
 				var numItems = 5;
 				var border = 2;
 				//set initial variables
@@ -38,6 +38,8 @@
 				$('.cc_content').css('width', ((width + border) * numItems - width)+ 'px');
 				$('.cc_content').css('height', height + 'px');
 				$('.cc_content').css('left', -(width * numItems) + 'px');
+				title_height = $('#title').css('height');
+				$('#cc_back').css('top', (parseInt(title_height.substring(0, title_height.length - 2)) + 30) + 'px');
 				//if menu is expanded then folded is true
 				var folded		= false;
 				//timeout to trigger the mouseenter event on the menu items
@@ -65,31 +67,26 @@
 					      else //fold and show the content
 						fold($li_e);
 				});
-				
-				/**
-				mouseenter function for the items
-				the timeout is used to prevent this event 
-				to trigger if the user moves the mouse with 
-				a considerable speed through the menu items
-				*/
+				// uncomment this next lines if you dont want to have intro effect
+				$('#cc_menu .cc_item').slowEach(transition_speed/numItems, function(index, domElement){
+						$(domElement).find('img').stop().animate({'top':'0px'},transition_speed);
+						$(domElement).find('.cc_submenu > ul').stop().animate({'height':'200px'},transition_speed);
+				})
+				//comment out this function if you dont want hover effect
 				function m_enter(){
-					var $this 	= $(this);
+					var $this = $(this);
 					clearTimeout(menu_time);
 					menu_time 	= setTimeout(function(){
-					//img
 					$this.find('img').stop().animate({'top':'0px'},transition_speed);
-					//cc_submenu ul
 					$this.find('.cc_submenu > ul').stop().animate({'height':'200px'},transition_speed);
 					},transition_speed / 2);
 				}
 				
-				//mouseleave function for the items
+				//comment out this function if you dont want hover effect
 				function m_leave(){
 					var $this = $(this);
 					clearTimeout(menu_time);
-					//img
 					$this.find('img').stop().animate({'top':'-' + height + 'px'},transition_speed);
-					//cc_submenu ul
 					$this.find('.cc_submenu > ul').stop().animate({'height':'0px'},transition_speed);
 				}
 				
@@ -103,11 +100,11 @@
 				*/
 				function fold($li_e){
 					var $item		= $li_e.closest('.cc_item');
-					
+
 					var d = 100;
 					var step = 0;
 					$('#cc_back').animate({
-						'top':50 + 'px'
+						'top': (parseInt(title_height.substring(0, title_height.length - 2)) - 20) + 'px'
 					}, transition_speed).fadeIn(transition_speed);
 					$items.unbind('mouseenter mouseleave');
 					$items.not($item).each(function(){
@@ -132,7 +129,7 @@
 				function unfold(){
 					$('#cc_content').stop().animate({'left':'-' + (numItems * (width + border)) + 'px'},(transition_speed * 3 / 2),function(){
 					$('#cc_back').animate({
-						'top':90 + 'px'
+						'top': (parseInt(title_height.substring(0, title_height.length - 2)) + 20) + 'px'
 					}, transition_speed).fadeOut(transition_speed);
 						var d = 100;
 						var step = 0;
@@ -210,7 +207,7 @@
 
 	<div id="main">
 		<div id="title"><img src="images/bg.png" /></div>
-		<span id="cc_back" class="cc_back">&lt;&lt; Go back</span>
+		<span id="cc_back" class="cc_back">Nazaj</span>
 		<div id="cc_menu" class="cc_menu">
 			<div class="cc_item" style="z-index:5;">
 				<img src="images/1.jpg" alt="image" />
@@ -316,7 +313,10 @@
 			</div>
 		</div>
 		<div id="footer_pannel">
-			<div id="language">EN SL</div>
+			<div id="language">
+				<a href="?lang=si"><img src="images/si.png" alt="SI" /></a>
+				<a href="?lang=en"><img src="images/gb.png" alt="ENG" /></a>
+			</div>
 			<div id="copyright">COPYLEFT</div>
 			<div id="author">AUTH</div>
 		</div>

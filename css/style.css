@@ -1,5 +1,7 @@
 #title{
+	cursor:pointer;
 	color:#ff0000;
+	height: 100px;
 	position:relative;
 }
 #footer_pannel{
@@ -118,8 +120,11 @@ span.cc_title{
 }
 span.cc_back{
 	position:absolute;
-	top:90px;
+	top:190px;
 	right:10px;
 	cursor:pointer;
 	color:#ddd;
+	padding: 5px;
+	margin: 5px;
+	background-color: #000000;
 }
