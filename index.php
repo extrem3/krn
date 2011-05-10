@@ -2,7 +2,7 @@
 <?php
 $location="localhost";		//location of your database
 $username="root";			//username for your database
-$password="toor";			//passowrd
+$password="andre";			//passowrd
 $database="krn";			//table name
 $bgImages = array(array("images/bg.jpg", 1024, 768));
 
@@ -29,8 +29,19 @@ $menu_rows = mysql_num_rows($menu_id_query);
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
 	<link rel="stylesheet" href="css/bgstretcher.css" type="text/css" media="screen"/>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script> -->
+	<script src="js/jquery-ui-1.8.2.custom.min.js"></script>
 	<script type="text/javascript" src="js/slowEach.js"></script>
 	<script type="text/javascript" src="js/bgstretcher.js"></script>
+	<style type="text/css">
+		a:active, a:focus{outline:none}
+		/* css for scrollbar below here*/
+		#slider-wrap{float:left;z-index: 100; background-color:lightgrey;width:20px;border:1px solid gray;border-left:none;}
+		#slider-vertical{position:relative;height:100%}
+		.ui-slider-handle{width:20px;height:10px;margin:0 auto;background-color:darkgray;display:block;position:absolute}
+	</style>
 	<script type="text/javascript">
 		var transition_speed = 250;
 		var width = 140;
@@ -154,6 +165,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 			}
 			
 			function unfold(){
+			   $("#slider-wrap").fadeOut(transition_speed);//set the height of the slider bar to that of the scroll pane
 				$('#cc_content').stop().animate({'left':'-' + (numItems * (width + border)) + 'px'},(transition_speed * 3 / 2),function(){
 				activated = 0;
 				$('#cc_back').animate({
@@ -195,12 +207,64 @@ $menu_rows = mysql_num_rows($menu_id_query);
 			function showContent(idx){
 				$('#cc_content').stop().animate({'left': width + 'px'},(transition_speed / 2),function(){
 					$(this).find('.'+idx).fadeIn();
+					var element = $(this).find('.'+idx);
+					element.css('position', 'relative');
+					var difference = element.height()-height;//eg it's 200px longer 
+
+					if(difference>0)//if the scrollbar is needed, set it up...
+					{
+					   var proportion = difference / element.height();//eg 200px/500px
+					   var handleHeight = Math.round((1-proportion)*(height));//set the proportional height - round it to make sure everything adds up correctly later on
+					   handleHeight -= handleHeight%2; 
+
+					   $("#slider-wrap").height(600);//set the height of the slider bar to that of the scroll pane
+					   $("#slider-wrap").fadeIn(transition_speed);//set the height of the slider bar to that of the scroll pane
+
+					   //set up the slider 
+					   $('#slider-vertical').slider({
+						  orientation: 'vertical',
+						  min: 0,
+						  max: 100,
+						  value: 100,
+						  slide: function(event, ui) {//used so the content scrolls when the slider is dragged
+							 var topValue = -((100-ui.value)*difference/100);
+							 element.css('top', topValue);//move the top up (negative value) by the percentage the slider has been moved times the difference in height
+						  },
+						  change: function(event, ui) {//used so the content scrolls when the slider is changed by a click outside the handle or by the mousewheel
+							 var topValue = -((100-ui.value)*difference/100);
+							 element.css('top', topValue);//move the top up (negative value) by the percentage the slider has been moved times the difference in height
+						  }
+					   });
+
+					   //set the handle height and bottom margin so the middle of the handle is in line with the slider
+					   $(".ui-slider-handle").css({height:handleHeight,'margin-bottom':-0.5*handleHeight});
+						
+					   var origSliderHeight = $("#slider-vertical").height();//read the original slider height
+					   var sliderHeight = origSliderHeight - handleHeight ;//the height through which the handle can move needs to be the original height minus the handle height
+					   var sliderMargin =  (origSliderHeight - sliderHeight)*0.5;//so the slider needs to have both top and bottom margins equal to half the difference
+					   $(".ui-slider").css({height:sliderHeight,'margin-top':sliderMargin});//set the slider height and margins
+					}else{
+					   $("#slider-wrap").fadeOut(transition_speed);//set the height of the slider bar to that of the scroll pane
+					}
+					$(".ui-slider").click(function(event){//stop any clicks on the slider propagating through to the code below
+						event.stopPropagation();
+					   });
+					   
+					$("#slider-wrap").click(function(event){//clicks on the wrap outside the slider range
+						  var offsetTop = $(this).offset().top;//read the offset of the scroll pane
+						  var clickValue = (event.pageY-offsetTop)*100/$(this).height();//find the click point, subtract the offset, and calculate percentage of the slider clicked
+						  $("#slider-vertical").slider("value", 100-clickValue);//set the new value of the slider
+					}); 
 				});
+
 			}
 			
 			function hideContent(){
 				$('#cc_content').find('div').hide();
 			}
+
+
+
 		});
 		$(window).resize(function(){
 			var title_height2 = stripInt(title_height);
@@ -209,6 +273,10 @@ $menu_rows = mysql_num_rows($menu_id_query);
 				$('#main').css('height', $(window).height() + 'px');
 				$('.cc_menu').css('top', ((($(window).height() - title_height2) / 2) - (height / 2) - stripInt($('#footer_pannel').css('height'))/2) + 'px');
 				$('#cc_back').css('top', (stripInt($('.cc_menu').css('top')) + title_height2 - activated) + 'px');
+				$('#slider-wrap').css('top', (stripInt($('.cc_menu').css('top')) + title_height2 - activated) + 'px');
+				$('#slider-wrap').css('left', '700px');
+				$('#slider-wrap').css('display', 'block');
+				$('#slider-wrap').css('position', 'absolute');
 			}
 		})
 		function stripInt(i)
@@ -220,6 +288,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 <body>
 	<div id="page">
 		<div id="main">
+			<div id="slider-wrap"><div id="slider-vertical"></div></div>
 			<div id="title"><img src="images/logo.png" /></div>
 			<span id="cc_back" class="cc_back"><?php if ($language == 'si') {echo "nazaj";}else{echo "back";}?></span>
 			<div id="cc_menu" class="cc_menu">

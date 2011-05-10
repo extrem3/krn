@@ -118,7 +118,7 @@ span.cc_title{
 	position:absolute;
 	left:-700px;
 	background:#444 url(../images/bg.png) repeat top left;
-	overflow:auto;
+	overflow:hidden;
 }
 .cc_content div{
 	display:none;
