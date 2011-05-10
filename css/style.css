@@ -125,7 +125,7 @@ span.cc_title{
 	margin:20px;
 }
 .cc_content p{
-	background:#000;
+	/* background:#000; */
 	padding:20px;
 	opacity:0.7;
 }

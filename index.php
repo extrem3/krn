@@ -32,13 +32,14 @@ $menu_rows = mysql_num_rows($menu_id_query);
 	<script type="text/javascript" src="js/slowEach.js"></script>
 	<script type="text/javascript" src="js/bgstretcher.js"></script>
 	<script type="text/javascript">
+		var transition_speed = 250;
+		var width = 140;
+		var height = 600;
+		var border = 2;
+		var numItems = <?php echo $menu_rows; ?>;
+		var title_height = 200;
 		$(function() {
 			//change these variables
-			var transition_speed = 250;
-			var width = 140;
-			var height = 600;
-			var border = 2;
-			var numItems = <?php echo $menu_rows; ?>;
 
 			$(document).bgStretcher({
 				images: <?php $randomElement = mt_rand(0, count($bgImages) - 1); echo "['" . $bgImages[$randomElement][0] . "'], imageWidth: " . $bgImages[$randomElement][1] . ", imageHeight:" . $bgImages[$randomElement][2]; ?>
@@ -131,8 +132,10 @@ $menu_rows = mysql_num_rows($menu_id_query);
 				var d = 100;
 				var step = 0;
 				$('#cc_back').animate({
-					'top': (parseInt(title_height.substring(0, title_height.length - 2)) - 20) + 'px'
-				}, transition_speed).fadeIn(transition_speed);
+					// 'top': (parseInt(title_height.substring(0, title_height.length - 2)) - 20) + 'px'
+					'top': (stripInt($('.cc_menu').css('top')) + stripInt(title_height) - 50) + 'px'
+				}, transition_speed);
+				$('#cc_back').fadeIn(transition_speed);
 				$items.unbind('mouseenter mouseleave');
 				$items.not($item).each(function(){
 					var $item = $(this);
@@ -151,8 +154,10 @@ $menu_rows = mysql_num_rows($menu_id_query);
 			function unfold(){
 				$('#cc_content').stop().animate({'left':'-' + (numItems * (width + border)) + 'px'},(transition_speed * 3 / 2),function(){
 				$('#cc_back').animate({
-					'top': (parseInt(title_height.substring(0, title_height.length - 2)) + 20) + 'px'
-				}, transition_speed).fadeOut(transition_speed);
+					// 'top': (parseInt(title_height.substring(0, title_height.length - 2)) + 20) + 'px'
+					'top': (stripInt($('.cc_menu').css('top')) + stripInt(title_height)) + 'px'
+				}, transition_speed);
+				$('#cc_back').fadeOut(transition_speed);
 					var d = 100;
 					var step = 0;
 				$items.each(function(){
@@ -194,6 +199,19 @@ $menu_rows = mysql_num_rows($menu_id_query);
 				$('#cc_content').find('div').hide();
 			}
 		});
+		$(window).resize(function(){
+			var title_height2 = stripInt(title_height);
+			if ((($(window).height()/2) - (height / 2) - title_height2) > 0)
+			{
+				$('#main').css('height', $(window).height() + 'px');
+				$('.cc_menu').css('top', (($(window).height() / 2) - (height / 2) - title_height2) + 'px');
+				$('#cc_back').css('top', (stripInt($('.cc_menu').css('top')) + title_height2) + 'px');
+			}
+		})
+		function stripInt(i)
+		{
+			return parseInt(i.substring(0, i.length - 2));
+		}
 	</script>
 </head>
 <body>
