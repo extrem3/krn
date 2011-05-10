@@ -139,3 +139,27 @@ span.cc_back{
 	margin: 5px;
 	background-color: #000000;
 }
+#slider-wrap 
+{
+	display: block;
+	position: absolute;
+	float:left;
+	left: 685px;
+	z-index: 100;
+	background-color: #111111;
+	width:15px;
+}
+#slider-vertical 
+{
+	position:relative;
+	height:100%
+}
+.ui-slider-handle
+{
+	width:15px;
+	height:10px;
+	margin:0 auto;
+	display:block;
+	background-color: #333333;
+	position:absolute
+}

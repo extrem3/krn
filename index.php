@@ -2,7 +2,7 @@
 <?php
 $location="localhost";		//location of your database
 $username="root";			//username for your database
-$password="andre";			//passowrd
+$password="toor";			//password
 $database="krn";			//table name
 $bgImages = array(array("images/bg.jpg", 1024, 768));
 
@@ -28,20 +28,11 @@ $menu_rows = mysql_num_rows($menu_id_query);
 	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
 	<link rel="stylesheet" href="css/bgstretcher.css" type="text/css" media="screen"/>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script> -->
-	<script src="js/jquery-ui-1.8.2.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="js/slowEach.js"></script>
 	<script type="text/javascript" src="js/bgstretcher.js"></script>
-	<style type="text/css">
-		a:active, a:focus{outline:none}
-		/* css for scrollbar below here*/
-		#slider-wrap{float:left;z-index: 100; background-color:lightgrey;width:20px;border:1px solid gray;border-left:none;}
-		#slider-vertical{position:relative;height:100%}
-		.ui-slider-handle{width:20px;height:10px;margin:0 auto;background-color:darkgray;display:block;position:absolute}
-	</style>
 	<script type="text/javascript">
 		var transition_speed = 250;
 		var width = 140;
@@ -255,6 +246,17 @@ $menu_rows = mysql_num_rows($menu_id_query);
 						  var clickValue = (event.pageY-offsetTop)*100/$(this).height();//find the click point, subtract the offset, and calculate percentage of the slider clicked
 						  $("#slider-vertical").slider("value", 100-clickValue);//set the new value of the slider
 					}); 
+					//additional code for mousewheel
+					$("#cc_content,#slider-wrap").mousewheel(function(event, delta){
+						var speed = 5;
+						var sliderVal = $("#slider-vertical").slider("value");//read current value of the slider
+						
+						sliderVal += (delta*speed);//increment the current value
+
+						$("#slider-vertical").slider("value", sliderVal);//and set the new value of the slider
+						
+						event.preventDefault();//stop any default behaviour
+					});
 				});
 
 			}
@@ -274,9 +276,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 				$('.cc_menu').css('top', ((($(window).height() - title_height2) / 2) - (height / 2) - stripInt($('#footer_pannel').css('height'))/2) + 'px');
 				$('#cc_back').css('top', (stripInt($('.cc_menu').css('top')) + title_height2 - activated) + 'px');
 				$('#slider-wrap').css('top', (stripInt($('.cc_menu').css('top')) + title_height2 - activated) + 'px');
-				$('#slider-wrap').css('left', '700px');
-				$('#slider-wrap').css('display', 'block');
-				$('#slider-wrap').css('position', 'absolute');
+				$('#slider-wrap').css('left', ((width + border) * numItems - stripInt($('#slider-wrap').css('width'))) + 'px');
 			}
 		})
 		function stripInt(i)
