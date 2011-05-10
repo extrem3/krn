@@ -38,6 +38,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 		var border = 2;
 		var numItems = <?php echo $menu_rows; ?>;
 		var title_height = 200;
+		var activated = 0;
 		$(function() {
 			//change these variables
 
@@ -57,10 +58,11 @@ $menu_rows = mysql_num_rows($menu_id_query);
 			$('.cc_item img').css('height', height + 'px');
 			$('.cc_item img').css('top', -height + 'px');
 			$('.cc_content').css('width', ((width + border) * numItems - width)+ 'px');
-			$('.cc_content').css('height', (height - 20) + 'px');
+			$('.cc_content').css('height', height + 'px');
 			$('.cc_content').css('left', -(width * numItems) + 'px');
 			title_height = $('#title').css('height');
 			$('#cc_back').css('top', (parseInt(title_height.substring(0, title_height.length - 2)) + 30) + 'px');
+			$(window).resize();
 
 			var $items 		= $('#cc_menu .cc_item');
 			var cnt_items	= $items.length;
@@ -131,9 +133,9 @@ $menu_rows = mysql_num_rows($menu_id_query);
 
 				var d = 100;
 				var step = 0;
+				activated = 50;
 				$('#cc_back').animate({
-					// 'top': (parseInt(title_height.substring(0, title_height.length - 2)) - 20) + 'px'
-					'top': (stripInt($('.cc_menu').css('top')) + stripInt(title_height) - 50) + 'px'
+					'top': (stripInt($('.cc_menu').css('top')) + stripInt(title_height) - activated) + 'px'
 				}, transition_speed);
 				$('#cc_back').fadeIn(transition_speed);
 				$items.unbind('mouseenter mouseleave');
@@ -153,6 +155,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 			
 			function unfold(){
 				$('#cc_content').stop().animate({'left':'-' + (numItems * (width + border)) + 'px'},(transition_speed * 3 / 2),function(){
+				activated = 0;
 				$('#cc_back').animate({
 					// 'top': (parseInt(title_height.substring(0, title_height.length - 2)) + 20) + 'px'
 					'top': (stripInt($('.cc_menu').css('top')) + stripInt(title_height)) + 'px'
@@ -201,11 +204,11 @@ $menu_rows = mysql_num_rows($menu_id_query);
 		});
 		$(window).resize(function(){
 			var title_height2 = stripInt(title_height);
-			if ((($(window).height()/2) - (height / 2) - title_height2) > 0)
+			if (((title_height2) + (height) + 27) < $(window).height())
 			{
 				$('#main').css('height', $(window).height() + 'px');
-				$('.cc_menu').css('top', (($(window).height() / 2) - (height / 2) - title_height2) + 'px');
-				$('#cc_back').css('top', (stripInt($('.cc_menu').css('top')) + title_height2) + 'px');
+				$('.cc_menu').css('top', ((($(window).height() - title_height2) / 2) - (height / 2) - stripInt($('#footer_pannel').css('height'))/2) + 'px');
+				$('#cc_back').css('top', (stripInt($('.cc_menu').css('top')) + title_height2 - activated) + 'px');
 			}
 		})
 		function stripInt(i)
