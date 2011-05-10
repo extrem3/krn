@@ -57,7 +57,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 			$('.cc_item img').css('height', height + 'px');
 			$('.cc_item img').css('top', -height + 'px');
 			$('.cc_content').css('width', ((width + border) * numItems - width)+ 'px');
-			$('.cc_content').css('height', height + 'px');
+			$('.cc_content').css('height', (height - 20) + 'px');
 			$('.cc_content').css('left', -(width * numItems) + 'px');
 			title_height = $('#title').css('height');
 			$('#cc_back').css('top', (parseInt(title_height.substring(0, title_height.length - 2)) + 30) + 'px');
