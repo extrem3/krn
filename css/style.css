@@ -120,7 +120,7 @@ span.cc_title{
 	background:#444 url(../images/bg.png) repeat top left;
 	overflow:hidden;
 }
-.cc_content div{
+.cc_content .content{
 	display:none;
 	margin:20px;
 }

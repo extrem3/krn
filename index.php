@@ -75,7 +75,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 				var $firstLink = $(this).parent().find('.cc_submenu ul > li:first');
 				if(folded){
 					hideContent();
-					showContent($firstLink.attr('class'));
+					showContent(stripId($firstLink.attr('id')));
 				}	
 				else
 					fold($firstLink);
@@ -84,7 +84,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 				var $firstLink = $(this).parent().find('.cc_submenu ul > li:first');
 				if(folded){
 					hideContent();
-					showContent($firstLink.attr('class'));
+					showContent(stripId($firstLink.attr('id')));
 				}	
 				else
 					fold($firstLink);
@@ -99,7 +99,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 
 				if(folded){
 					hideContent();
-					showContent($li_e.attr('class'));
+					showContent(stripId($li_e.attr('id')));
 				}	
 				else
 					fold($li_e);
@@ -149,7 +149,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 						++step;
 						if(step == cnt_items-1){
 							folded = true;
-							showContent($li_e.attr('class'));
+							showContent(stripId($li_e.attr('id')));
 						}	
 					});
 				});
@@ -197,8 +197,8 @@ $menu_rows = mysql_num_rows($menu_id_query);
 			
 			function showContent(idx){
 				$('#cc_content').stop().animate({'left': width + 'px'},(transition_speed / 2),function(){
-					$(this).find('.'+idx).fadeIn();
-					var element = $(this).find('.'+idx);
+					$(this).find('#'+idx).fadeIn();
+					var element = $(this).find('#'+idx);
 					element.css('position', 'relative');
 					var difference = element.height()-height;//eg it's 200px longer 
 
@@ -262,7 +262,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 			}
 			
 			function hideContent(){
-				$('#cc_content').find('div').hide();
+				$('#cc_content').find('.content').hide();
 			}
 
 
@@ -275,13 +275,24 @@ $menu_rows = mysql_num_rows($menu_id_query);
 				$('#main').css('height', $(window).height() + 'px');
 				$('.cc_menu').css('top', ((($(window).height() - title_height2) / 2) - (height / 2) - stripInt($('#footer_pannel').css('height'))/2) + 'px');
 				$('#cc_back').css('top', (stripInt($('.cc_menu').css('top')) + title_height2 - activated) + 'px');
-				$('#slider-wrap').css('top', (stripInt($('.cc_menu').css('top')) + title_height2 - activated) + 'px');
+				$('#slider-wrap').css('top', (stripInt($('.cc_menu').css('top')) + title_height2) + 'px');
+				$('#slider-wrap').css('left', ((width + border) * numItems - stripInt($('#slider-wrap').css('width'))) + 'px');
+			}else
+			{
+				$('#main').css('height', $(window).height() + 'px');
+				$('.cc_menu').css('top', '0px');
+				$('#cc_back').css('top', (stripInt($('.cc_menu').css('top')) + title_height2 - activated) + 'px');
+				$('#slider-wrap').css('top', title_height2 + 'px');
 				$('#slider-wrap').css('left', ((width + border) * numItems - stripInt($('#slider-wrap').css('width'))) + 'px');
 			}
 		})
 		function stripInt(i)
 		{
 			return parseInt(i.substring(0, i.length - 2));
+		}
+		function stripId(i)
+		{
+			return i.substring(3,i.lenght);
 		}
 	</script>
 </head>
@@ -312,7 +323,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 						$j ++;
 						$contentTitle = $contentRow['title'];
 						array_push($contentsArray, array($contentRow['title'], $contentRow['text']));
-						echo '<li class="cc_content_' . $j . '">' . $contentRow['title'] . '</li>';
+						echo '<li id="li_content_' . $j . '">' . $contentRow['title'] . '</li>';
 					}
 					echo '</ul>';
 					echo '</div>';
@@ -323,7 +334,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 				<?php 
 				for ($k = 0; $k < count($contentsArray); $k ++)
 				{
-					echo '<div class="cc_content_' . ($k + 1). '">';
+					echo '<div class="content" id="content_' . ($k + 1). '">';
 					echo '<h1>' . $contentsArray[$k][0] . '</h1>';
 					echo '<p>' . $contentsArray[$k][1] . '</p>';
 					echo '</div>';
