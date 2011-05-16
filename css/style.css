@@ -23,7 +23,7 @@ body {
 }
 #shadow_bottom {
 	position: absolute;
-	width: 712px;
+	width: 714px;
 	height: 5px;
 	background-image: url(../images/hori.png);
 	background-repeat: repeat-x;
@@ -32,6 +32,7 @@ body {
 #shadow_right{
 	position: absolute;
 	height: 600px;
+	width: 5px;
 	background-image: url(../images/vert.png);
 	background-repeat: repeat-y;
 	background-position: top left;

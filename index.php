@@ -2,7 +2,7 @@
 <?php
 $location="localhost";		//location of your database
 $username="root";			//username for your database
-$password="andre";			//password
+$password="toor";			//password
 $database="krn";			//table name
 $bgImages = array(array("images/bg.jpg", 1024, 768));
 
@@ -348,7 +348,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 				?>
 				</div>
 			</div>
-			<div id="shadow_bottom">test</div>
+			<div id="shadow_bottom"></div>
 			<div id="footer_pannel">
 				<div id="language">
 					<a href="?lang=si"><img src="images/si.png" alt="SI" /></a>
@@ -358,7 +358,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 				<div id="author">AUTH</div>
 			</div>
 		</div>
-			<div id="shadow_right">test</div>
+			<div id="shadow_right"></div>
 	</div>
 </body>
 </html>
