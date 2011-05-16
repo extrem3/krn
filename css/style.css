@@ -21,6 +21,21 @@ body {
 	color:#fff;
 	background-color: #111111;
 }
+#shadow_bottom {
+	position: absolute;
+	width: 712px;
+	height: 5px;
+	background-image: url(../images/hori.png);
+	background-repeat: repeat-x;
+	background-position: top left;
+}
+#shadow_right{
+	position: absolute;
+	height: 600px;
+	background-image: url(../images/vert.png);
+	background-repeat: repeat-y;
+	background-position: top left;
+}
 #language{
 	display: inline;
 	position: relative;

@@ -2,7 +2,7 @@
 <?php
 $location="localhost";		//location of your database
 $username="root";			//username for your database
-$password="toor";			//password
+$password="andre";			//password
 $database="krn";			//table name
 $bgImages = array(array("images/bg.jpg", 1024, 768));
 
@@ -209,7 +209,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 					   handleHeight -= handleHeight%2; 
 
 					   $("#slider-wrap").height(600);//set the height of the slider bar to that of the scroll pane
-					   $("#slider-wrap").fadeIn(transition_speed);//set the height of the slider bar to that of the scroll pane
+					   $("#slider-wrap").fadeIn(transition_speed);
 
 					   //set up the slider 
 					   $('#slider-vertical').slider({
@@ -275,14 +275,20 @@ $menu_rows = mysql_num_rows($menu_id_query);
 				$('#main').css('height', $(window).height() + 'px');
 				$('.cc_menu').css('top', ((($(window).height() - title_height2) / 2) - (height / 2) - stripInt($('#footer_pannel').css('height'))/2) + 'px');
 				$('#cc_back').css('top', (stripInt($('.cc_menu').css('top')) + title_height2 - activated) + 'px');
-				$('#slider-wrap').css('top', (stripInt($('.cc_menu').css('top')) + title_height2) + 'px');
+				$('#shadow_bottom').css('top', (stripInt($('.cc_menu').css('top')) + title_height2 + height) + 'px');
+				$('#shadow_right').css('top', (stripInt($('.cc_menu').css('top')) + title_height2) + 'px');
+				$('#shadow_right').css('left', ($('#main').position().left + (width + border) * numItems) + 'px');
+				$('#slider-wrap').css('top', '0px');
 				$('#slider-wrap').css('left', ((width + border) * numItems - stripInt($('#slider-wrap').css('width'))) + 'px');
 			}else
 			{
+				console.log($('#main').position().left)
 				$('#main').css('height', $(window).height() + 'px');
 				$('.cc_menu').css('top', '0px');
-				$('#cc_back').css('top', (stripInt($('.cc_menu').css('top')) + title_height2 - activated) + 'px');
-				$('#slider-wrap').css('top', title_height2 + 'px');
+				$('#shadow_bottom').css('top', (stripInt($('.cc_menu').css('top')) + title_height2 + height) + 'px');
+				$('#shadow_right').css('top', (stripInt($('.cc_menu').css('top')) + title_height2) + 'px');
+				$('#shadow_right').css('left', ($('#main').position().left + (width + border) * numItems) + 'px');
+				$('#slider-wrap').css('top', '0px');
 				$('#slider-wrap').css('left', ((width + border) * numItems - stripInt($('#slider-wrap').css('width'))) + 'px');
 			}
 		})
@@ -292,17 +298,17 @@ $menu_rows = mysql_num_rows($menu_id_query);
 		}
 		function stripId(i)
 		{
-			return i.substring(3,i.lenght);
+			return i.substring(3,i.length);
 		}
 	</script>
 </head>
 <body>
 	<div id="page">
 		<div id="main">
-			<div id="slider-wrap"><div id="slider-vertical"></div></div>
 			<div id="title"><img src="images/logo.png" /></div>
 			<span id="cc_back" class="cc_back"><?php if ($language == 'si') {echo "nazaj";}else{echo "back";}?></span>
 			<div id="cc_menu" class="cc_menu">
+				<div id="slider-wrap"><div id="slider-vertical"></div></div>
 				<?php 
 				$i = 0;
 				$j = 0;
@@ -342,6 +348,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 				?>
 				</div>
 			</div>
+			<div id="shadow_bottom">test</div>
 			<div id="footer_pannel">
 				<div id="language">
 					<a href="?lang=si"><img src="images/si.png" alt="SI" /></a>
@@ -351,6 +358,7 @@ $menu_rows = mysql_num_rows($menu_id_query);
 				<div id="author">AUTH</div>
 			</div>
 		</div>
+			<div id="shadow_right">test</div>
 	</div>
 </body>
 </html>
